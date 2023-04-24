@@ -2,9 +2,8 @@
 namespace Kuran\SLogger\Managers;
 
 use Kuran\SLogger\Managers\ManagerInterface;
-use Kuran\SLogger\Formaters\FormaterInterface;
+use Kuran\SLogger\Formaters\{FormaterInterface, LineFormater};
 use Kuran\SLogger\ErrorLevel;
-use Kuran\SLogger\Formaters\LineFormater;
 
 class FileManager implements ManagerInterface{
 
@@ -25,9 +24,9 @@ class FileManager implements ManagerInterface{
     }
 
     public function execute(
-        $level,
-        $message,
-        $context): bool
+        ErrorLevel $level,
+        string $message,
+        array $context): bool
     {
             $formatedMessage = $this->formater->format($level, $message, $context);
 
@@ -52,7 +51,7 @@ class FileManager implements ManagerInterface{
             return true;
     }
 
-    public function setFormater($formater)
+    public function setFormater(FormaterInterface $formater)
     {
         $this->formater = $formater;
     }
