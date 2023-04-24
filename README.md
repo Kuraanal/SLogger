@@ -44,7 +44,7 @@ $log->alert(
 
 ## Logger class options
 
-### - **_Constructor_**
+### - **_`Constructor`_**
 
 | Argument | Description                                |
 | -------- | ------------------------------------------ |
@@ -54,9 +54,9 @@ $log->alert(
     __construct(array $managers = array())
 ```
 
-Same as creating a logger without argument then using the **_setManagers()_** function
+Same as creating a logger without argument then using the **_`setManagers()`_** function
 
-### - **_setManagers method_**
+### - **_`setManagers method`_**
 
 This method is used to set an array of managers to the logger.  
 This will replace the Logger's managers list.
@@ -67,10 +67,10 @@ This will replace the Logger's managers list.
 
 Many managers can be used to log messages to different files, or using different methods (Database...). Or to log messages with different Error Levels.
 
-### - **_addManager method_**
+### - **_`addManager method`_**
 
 This method is used to add a simgle manager to the managers stack.  
-If you want to add another **_Manager_** later in your code.
+If you want to add another **_`Manager`_** later in your code.
 
 ```php
     addManager(ManagerInterface $manager);
@@ -78,14 +78,14 @@ If you want to add another **_Manager_** later in your code.
 
 ## FileManager options
 
-### - **_Constructor_**
+### - **_`Constructor`_**
 
 all arguments are optional.
-| Argument | Description                                                                              |
+| Argument | Description |
 |----------|------------------------------------------------------------------------------------------|
-| filePath | If no filepath is defined, it will log message to **_app.log_** by default               |
-| level    | Default level is **_ErrorLevel::ERROR_**                                                 |
-| formater | If no Formater is defined, it will default to a **_LineFormater_** with default options. |
+| filePath | If no filepath is defined, it will log message to **_`app.log`_** by default |
+| level | Default level is **_`ErrorLevel::ERROR`_** |
+| formater | If no Formater is defined, it will default to a **_`LineFormater`_** with default options. |
 
 ```php
 __construct(
@@ -94,7 +94,7 @@ __construct(
         FormaterInterface $formater = null)
 ```
 
-### - **_setFormater_**
+### - **_`setFormater`_**
 
 used to replace the Formater already in place.
 
@@ -133,7 +133,7 @@ used to replace the Formater already in place.
 
 #### Error Levels
 
-The Error levels are defined as follow in the **_ErrorLevel_** enum
+The Error levels are defined as follow in the **_`ErrorLevel`_** enum
 
 ```php
 enum ErrorLevel: int
@@ -151,14 +151,14 @@ enum ErrorLevel: int
 
 ## LineFormater options
 
-### - **_Constructor_**
+### - **_`Constructor`_**
 
 All arguments are optional.
 
-| Argument   | Description                                                                            |
-| ---------- | -------------------------------------------------------------------------------------- |
-| format     | If no format is defined, it will default to **Date \[ Level \] > Message Context**     |
-| timeFormat | If no date format is defined, it will default to **Y-m-d H:i:s**                       |
+| Argument   | Description                                                                        |
+| ---------- | ---------------------------------------------------------------------------------- |
+| format     | If no format is defined, it will default to **Date \[ Level \] > Message Context** |
+| timeFormat | If no date format is defined, it will default to **Y-m-d H:i:s**                   |
 
 ```php
     __construct(
