@@ -17,8 +17,9 @@ namespace Kuran\SLogger;
 use Kuran\SLogger\ErrorLevel;
 use Kuran\SLogger\Managers\ManagerInterface;
 use \Exception;
+use Psr\Log\LoggerInterface;
 
-class Logger
+class Logger implements LoggerInterface
 {
 
     private array $managers;
@@ -35,43 +36,43 @@ class Logger
         $this->managers[] = $manager;
     }
 
-    public function log(ErrorLevel $level, $message, array $context = array()){
+    public function log($level, $message, array $context = array()): void{
         foreach($this->managers as $manager){
             if($manager->canManage($level))
                 $manager->execute($level, $message, $context);
         }
     }
 
-    public function emergency($message, array $context = array()){
+    public function emergency($message, array $context = array()): void{
         $this->log(ErrorLevel::EMERGENCY, $message, $context);
     }
 
-    public function alert($message, array $context = array()){
-            $this->log(ErrorLevel::ALERT, $message, $context);
+    public function alert($message, array $context = array()): void{
+        $this->log(ErrorLevel::ALERT, $message, $context);
     }
 
-    public function critical($message, array $context = array()){
-            $this->log(ErrorLevel::CRITICAL, $message, $context);
+    public function critical($message, array $context = array()): void{
+        $this->log(ErrorLevel::CRITICAL, $message, $context);
     }
 
-    public function error($message, array $context = array()){
-            $this->log(ErrorLevel::ERROR, $message, $context);
+    public function error($message, array $context = array()): void{
+        $this->log(ErrorLevel::ERROR, $message, $context);
     }
 
-    public function warning($message, array $context = array()){
-            $this->log(ErrorLevel::WARNING, $message, $context);
+    public function warning($message, array $context = array()): void{
+        $this->log(ErrorLevel::WARNING, $message, $context);
     }
 
-    public function notice($message, array $context = array()){
-            $this->log(ErrorLevel::NOTICE, $message, $context);
+    public function notice($message, array $context = array()): void{
+        $this->log(ErrorLevel::NOTICE, $message, $context);
     }
 
-    public function info($message, array $context = array()){
-            $this->log(ErrorLevel::INFO, $message, $context);
+    public function info($message, array $context = array()): void{
+        $this->log(ErrorLevel::INFO, $message, $context);
     }
 
-    public function debug($message, array $context = array()){
-            $this->log(ErrorLevel::DEBUG, $message, $context);
+    public function debug($message, array $context = array()): void{
+        $this->log(ErrorLevel::DEBUG, $message, $context);
     }
 }
 
