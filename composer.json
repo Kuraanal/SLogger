@@ -22,5 +22,6 @@
 		"psr-4": {
 			"SLogger\\": "src/Kuran/SLogger"
 		}
-	}
+	},
+	"minimum-stability": "stable"
 }
