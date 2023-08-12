@@ -20,7 +20,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"SLogger\\": "src/Kuran/SLogger"
+			"Kuran\\SLogger\\": "src/"
 		}
 	},
 	"minimum-stability": "stable"
