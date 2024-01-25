@@ -2,6 +2,8 @@
 
 A Simple Logger class for PhP.
 
+![Packagist PHP Version](https://img.shields.io/packagist/dependency-v/kuran/SLogger/php)
+
 ## About
 
 This is a simple Logger class meant to be easy to implement so that you don't have to worry about to much configuration.  

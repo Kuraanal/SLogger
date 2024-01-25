@@ -1,8 +1,7 @@
 <?php
 namespace Kuran\SLogger\Formaters;
 
-use Kuran\SLogger\ErrorLevel;
-use Kuran\SLogger\Formaters\FormaterInterface;
+use Kuran\SLogger\{ErrorLevel, Formaters\FormaterInterface};
 use DateTime;
 use DateTimeZone;
 
@@ -29,13 +28,13 @@ class LineFormater implements FormaterInterface
 
     public function format(ErrorLevel $level, string $message, array $context): string
     {
-        $decripted = $this->interpolate($message, $context);
+        $decriptedMessage = $this->interpolate($message, $context);
         $date = new DateTime('now', $this->timeZone);
 
         return $this->interpolate($this->messageFormat, array(
             ":date" => $date->format($this->timeFormat),
             ":errorLevel" => $level->name,
-            ":message" => $decripted,
+            ":message" => $decriptedMessage,
             ":context" => json_encode($context),
         ));
     }

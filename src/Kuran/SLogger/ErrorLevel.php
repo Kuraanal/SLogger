@@ -21,15 +21,12 @@ enum ErrorLevel: int
 
 
     /**
-     *  Check if a value exist and then return it.
-     * 
-     * If the value is a case, return the case object.
-     * If the value is not a case, throw an exception of type "InvalidArgumentException".
-     * 
-     * @param int $value => value to be tested.
-     * 
-     * @return 
-     **/
+     * Create a new instance from the given value.
+     *
+     * @param int $value The value to create the instance from
+     * @throws InvalidArgumentException If the value is not found in the cases
+     * @return self The new instance created from the given value
+     */
     public static function fromValue(int $value): self
     {
         $values = array_map(fn ($case) => $case->value, self::cases());
@@ -37,6 +34,25 @@ enum ErrorLevel: int
         if ($index === false) {
             throw new InvalidArgumentException("Invalid error level value: $value");
         }
+
+        return self::cases()[$index];
+    }
+
+        /**
+     * Returns a case object from a given name.
+     *
+     * @param string $name The name of the case.
+     * @throws InvalidArgumentException If the provided name is not found.
+     * @return self The case object with the provided name.
+     */
+    public static function fromName(string $name): self
+    {
+        $values = array_map(fn ($case) => $case->name, self::cases());
+        $index = array_search($name, $values, true);
+        if ($index === false) {
+            throw new InvalidArgumentException("Invalid error level name: $name");
+        }
+        
         return self::cases()[$index];
     }
 }

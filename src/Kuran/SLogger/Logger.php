@@ -14,8 +14,7 @@ namespace Kuran\SLogger;
  * @version 1.0.1
  */
 
-use Kuran\SLogger\ErrorLevel;
-use Kuran\SLogger\Managers\ManagerInterface;
+use Kuran\SLogger\{ErrorLevel, Managers\ManagerInterface};
 use Psr\Log\LoggerInterface;
 
 class Logger implements LoggerInterface
