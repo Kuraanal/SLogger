@@ -16,7 +16,7 @@ class LineFormater implements FormaterInterface
     private string $timeFormat;
     private DateTimeZone $timeZone;
 
-    public function __construct(string $format = null, string $timeFormat = null, string $timeZone = null)
+    public function __construct(string|null $format = null, string|null $timeFormat = null, string|null $timeZone = null)
     {
         $this->messageFormat = $format === null ? static::DEFAULT_STRING_FORMAT : $format;
         $this->timeFormat = $timeFormat === null ? static::DEFAULT_TIME_FORMAT : $timeFormat;

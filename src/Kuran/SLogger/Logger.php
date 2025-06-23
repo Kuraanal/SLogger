@@ -15,7 +15,6 @@ namespace Kuran\SLogger;
  */
 
 use Kuran\SLogger\{ErrorLevel, Managers\ManagerInterface};
-use Psr\Log\LoggerInterface;
 
 class Logger implements LoggerInterface
 {
@@ -26,15 +25,15 @@ class Logger implements LoggerInterface
         $this->managers = count($managers) === 0 ? array() : $managers;
     }
 
-    public function setManagers(array $managers){
+    public function setManagers(array $managers): void{
         $this->managers = $managers;
     }
 
-    public function addManager(ManagerInterface $manager){
+    public function addManager(ManagerInterface $manager): void{
         $this->managers[] = $manager;
     }
 
-    public function log($level, string|\Stringable $message, array $context = array()): void{
+    public function log(ErrorLevel $level, string|\Stringable $message, array $context = array()): void{
         foreach($this->managers as $manager){
             if($manager->canManage($level))
                 $manager->execute($level, $message, $context);

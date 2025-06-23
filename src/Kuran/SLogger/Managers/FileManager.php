@@ -16,7 +16,7 @@ class FileManager implements ManagerInterface{
     public function __construct(
         string $filePath = 'app.log',
         ErrorLevel $level = ErrorLevel::ERROR,
-        FormaterInterface $formater = null)
+        FormaterInterface|null $formater = null)
     {
         $this->formater = $formater === null ? new LineFormater() : $formater;
         $this->filePath = $filePath;
