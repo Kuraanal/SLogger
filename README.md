@@ -7,7 +7,7 @@ A Simple Logger class for PhP.
 ## About
 
 This is a simple Logger class meant to be easy to implement so that you don't have to worry about to much configuration.  
-This class follow a PSR-3 standard.
+This class follow a PSR-3 standard but do not implement directly the logger interface to make full use of enums as the error levels.
 
 ## Basic Usage
 
@@ -19,28 +19,25 @@ require_once("vendor/Autoloader.php");
 
 use Kuran\SLOGGER\{Logger, ErrorLevel, Managers\FileManager};
 
-/* Instanciate the Logger.
-*  Add a Manager to the logger. The manager has a default Formater.
+/* Instantiate the class.
+* Then create a new Manager. The FileManager include a default LineFormatter,
+* which writes to 'app.log' by default.
 */
-$log = new Logger(
-    array(
-        new FileManager()
-        )
-    );
+$log = new Logger( array( new FileManager() ) );
 
 
 /* Simple log.
 *  Needs a message body, and an array for context.
 */
 $log->alert(
-    "Test message for the file {:file}",
-    array(
+    message: "Test message for the file {:file}",
+    context: array(
         ":file" => __FILE__,
         ":extras" => array(
             ["name" => "Admin", "username" => "admin"],
             ["name" => "Root", "username" => "root"]
             )
-    )
+        )
 );
 ```
 
@@ -61,10 +58,14 @@ Same as creating a logger without argument then using the **_`setManagers()`_** 
 ### - **_`setManagers method`_**
 
 This method is used to set an array of managers to the logger.  
-This will replace the Logger's managers list.
+This will completly replace the Logger's managers list.
 
 ```php
-    setManagers(array $managers);
+    setManagers(managers: = array(
+        new FileManager(filePath: 'debug.log', level: ErrorLevel::Debug, formater: null),
+        new FileManager(filePath: 'errors.log', level: ErrorLevel::Error, formater: null)
+        )
+    );
 ```
 
 Many managers can be used to log messages to different files, or using different methods (Database...). Or to log messages with different Error Levels.
@@ -91,9 +92,9 @@ all arguments are optional.
 
 ```php
 __construct(
-        string $filePath = 'app.log',
-        ErrorLevel $level = ErrorLevel::ERROR,
-        FormaterInterface $formater = null)
+        filePath: = 'app.log',
+        level: = ErrorLevel::ERROR,
+        formater: = null)
 ```
 
 ### - **_`setFormater`_**
@@ -127,7 +128,7 @@ used to replace the Formater already in place.
     );
 
     //set the Manager list to $errorManager and $debugManager
-    $log->setManager(array($errorManager, $debugManager));
+    $log->setManagers(array($errorManager, $debugManager));
 
     // add $manager to the list of managers
     $log->addManager($manager);
@@ -150,6 +151,15 @@ enum ErrorLevel: int
     case DEBUG     = 100; //ErrorLevel::DEBUG
 }
 ```
+
+ErrorLevel entry can be returned by name or number using the enum methods fromValue(int) and fromName(string).
+
+```php
+    ErrorLevel::fromValue(700); // ErrorLevel::ALERT
+    ErrorLevel::fromName('Notice'); // ErrorLevel::NOTICE
+```
+
+Both will throw an exeption if the value or name are invalid.
 
 ## LineFormater options
 
@@ -177,3 +187,5 @@ $formater = new LineFormater(
     timeFormat: "m-d-Y H:i"
 );
 ```
+
+For every entry used in the format using {:parameter}, a replacement will be made with entries from the context array.

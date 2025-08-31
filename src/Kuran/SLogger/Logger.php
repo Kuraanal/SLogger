@@ -11,7 +11,7 @@ namespace Kuran\SLogger;
  *
  * @author AGNEL Eric <eric.agnel@gmail.com>
  *
- * @version 1.0.1
+ * @version 1.0.3
  */
 
 use Kuran\SLogger\{ErrorLevel, Managers\ManagerInterface};

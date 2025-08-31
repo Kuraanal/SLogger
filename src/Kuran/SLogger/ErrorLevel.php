@@ -48,7 +48,7 @@ enum ErrorLevel: int
     public static function fromName(string $name): self
     {
         $values = array_map(fn ($case) => $case->name, self::cases());
-        $index = array_search($name, $values, true);
+        $index = array_search(strtoupper($name), $values, true);
         if ($index === false) {
             throw new InvalidArgumentException("Invalid error level name: $name");
         }
